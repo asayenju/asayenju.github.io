@@ -4,65 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ashwin Sayenju</title>
-<meta name="description" content="Ashwin Sayenju — CS at UMass Amherst, building reliable agents.">
+<meta name="description" content="Ashwin Sayenju: CS at UMass Amherst, building reliable agents. Projects from GitHub.">
+<link rel="icon" href="assets/profile.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="wrap">
-  <nav><span class="logo">AS</span>
-    <a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
-</header>
+<div id="progress"></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top">AS</a>
+  <a href="#featured">Featured</a><a href="#more">More</a><a href="#contact">Contact</a>
+</div></nav>
 
-<main class="wrap">
+<main class="wrap" id="top">
   <section class="hero">
-    <h1>Ashwin Sayenju</h1>
-    <p class="lead">CS student at UMass Amherst, building reliable agents.</p>
-    <p><a class="btn" href="https://github.com/asayenju">GitHub</a></p>
+    <div>
+      <p class="eyebrow" data-reveal>CS @ UMass Amherst</p>
+      <h1 id="name"><span class="w"><span>Ashwin</span></span> <span class="w"><span>Sayenju</span></span></h1>
+      <p class="lead" data-reveal>I build reliable agents: systems where the model talks and code decides. Also ML, backends and the occasional mobile app.</p>
+      <div class="cta" data-reveal>
+        <a class="btn primary" href="#featured">See my work</a>
+        <a class="btn" href="https://github.com/asayenju">GitHub</a>
+      </div>
+      <div class="stats" data-reveal>
+        <div><b data-count="12">0</b><span>featured projects</span></div>
+        <div><b data-count="38">0</b><span>more on GitHub</span></div>
+      </div>
+    </div>
+    <div class="avatar" id="avatar"><img src="assets/profile.png" alt="Ashwin's profile picture" width="380" height="380"></div>
   </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="grid">
-      <a class="card" href="https://github.com/asayenju/PathCite-AI-Pathology-Assistant">
-        <h3>PathCite</h3>
-        <p>Classifies colorectal H&amp;E tissue patches into 9 classes with a fine-tuned ResNet18 and a FastAPI backend (70 offline tests).</p>
-        <span class="tags">PyTorch · FastAPI</span>
-      </a>
-      <a class="card" href="https://github.com/asayenju/MSR_Challenge_Gitskills_Brooks_Ash">
-        <h3>MSR Challenge: GitSkills</h3>
-        <p>Research on whether similar agent skills confuse a coding agent, measured with pass@k and pass^k over 3.8M SKILL.md files.</p>
-        <span class="tags">Python · Research</span>
-      </a>
-      <a class="card" href="https://github.com/asayenju/AWS_S3_Vulnerability_Scanner">
-        <h3>AWS S3 Vulnerability Scanner</h3>
-        <p>Polls S3 buckets on a schedule, scans for misconfigurations and notifies you of findings.</p>
-        <span class="tags">Python · AWS</span>
-      </a>
-      <a class="card" href="https://github.com/asayenju/legal_document_analyzer">
-        <h3>Legal Document Analyzer</h3>
-        <p>Analyzes legal documents.</p>
-        <span class="tags">Python</span>
-      </a>
-      <a class="card" href="https://github.com/asayenju/secure_send">
-        <h3>Secure Send</h3>
-        <p>Secure file sending app.</p>
-        <span class="tags">JavaScript</span>
-      </a>
-      <a class="card" href="https://github.com/asayenju?tab=repositories">
-        <h3>More on GitHub →</h3>
-        <p>RAG tools, agents, backends and coursework.</p>
-        <span class="tags">All repositories</span>
-      </a>
-    </div>
+  <section id="featured">
+    <h2 data-reveal>Featured</h2>
+    <p class="sub" data-reveal>The projects I'd show first. Demo videos live on the cards.</p>
+    <div class="grid" id="featured-grid"></div>
+  </section>
+
+  <section id="more">
+    <h2 data-reveal>More projects</h2>
+    <p class="sub" data-reveal>Everything else public on my GitHub, from coursework to experiments.</p>
+    <div class="mini-grid" id="more-grid"></div>
+    <h3 style="margin-top:40px" data-reveal>Forks I've worked in</h3>
+    <ul class="forks" id="forks"></ul>
   </section>
 
   <section id="contact">
-    <h2>Contact</h2>
-    <p>Find me on <a href="https://github.com/asayenju">GitHub</a>.</p>
+    <h2 data-reveal>Contact</h2>
+    <p class="sub" data-reveal>The best place to find me is <a href="https://github.com/asayenju">github.com/asayenju</a>.</p>
   </section>
 </main>
-
-<footer class="wrap"><small>© <span id="y"></span> Ashwin Sayenju</small></footer>
-<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<footer><small>© <span id="y"></span> Ashwin Sayenju</small></footer>
+<script type="module" src="main.js"></script>
 </body>
 </html>
