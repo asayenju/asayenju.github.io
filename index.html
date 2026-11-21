@@ -6,13 +6,20 @@
 <title>Ashwin Sayenju</title>
 <meta name="description" content="Ashwin Sayenju: CS at UMass Amherst, building reliable agents. Projects from GitHub.">
 <link rel="icon" href="assets/profile.png">
+<script>
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("anim");
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove("anim")},5000)}
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="curtain"><span>AS</span></div>
+<div class="blobs" aria-hidden="true"><div class="bw"><i class="b1"></i></div><div class="bw"><i class="b2"></i></div><div class="bw"><i class="b3"></i></div></div>
+<div id="cursor" aria-hidden="true"></div>
 <div id="progress"></div>
 <nav><div class="wrap">
   <a class="logo" href="#top">AS</a>
-  <a href="#featured">Featured</a><a href="#more">More</a><a href="#contact">Contact</a>
+  <a href="#featured">Featured</a><a href="#more">More</a><a href="#contact">Contact</a><span class="pill"></span>
 </div></nav>
 
 <main class="wrap" id="top">
@@ -20,7 +27,7 @@
     <div>
       <p class="eyebrow" data-reveal>CS @ UMass Amherst</p>
       <h1 id="name"><span class="w"><span>Ashwin</span></span> <span class="w"><span>Sayenju</span></span></h1>
-      <p class="lead" data-reveal>I build reliable agents: systems where the model talks and code decides. Also ML, backends and the occasional mobile app.</p>
+      <p class="lead" data-reveal>I build <b id="type"></b><span class="caret"></span> where the model talks and code decides.</p>
       <div class="cta" data-reveal>
         <a class="btn primary" href="#featured">See my work</a>
         <a class="btn" href="https://github.com/asayenju">GitHub</a>
@@ -30,8 +37,12 @@
         <div><b data-count="38">0</b><span>more on GitHub</span></div>
       </div>
     </div>
-    <div class="avatar" id="avatar"><img src="assets/profile.png" alt="Ashwin's profile picture" width="380" height="380"></div>
+    <div class="avatar-wrap"><div class="rays" aria-hidden="true"></div>
+      <div class="avatar" id="avatar"><img src="assets/profile.png" alt="Ashwin's profile picture" width="380" height="380" draggable="false"></div>
+      <p class="hint" id="hint">psst. click me.</p></div>
   </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track" id="m1"></div><div class="track alt" id="m2"></div></div>
 
   <section id="featured">
     <h2 data-reveal>Featured</h2>
@@ -52,6 +63,7 @@
     <p class="sub" data-reveal>The best place to find me is <a href="https://github.com/asayenju">github.com/asayenju</a>.</p>
   </section>
 </main>
+<div id="flash"></div><div id="shock"></div><div id="ok">OK.</div>
 <footer><small>© <span id="y"></span> Ashwin Sayenju</small></footer>
 <script type="module" src="main.js"></script>
 </body>

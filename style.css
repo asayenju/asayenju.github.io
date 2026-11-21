@@ -44,3 +44,43 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.03em;margin:0 0 8px}
 footer{padding:48px 0 64px;color:var(--muted);border-top:1px solid #ffffff0d;text-align:center}
 @media(max-width:760px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:24px}.avatar{order:-1;width:55%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.anim [data-reveal],.anim .card,.anim .mini,.anim section h2,.anim section .sub,.anim .forks li{opacity:0}
+.hero>div:first-child{position:relative;z-index:2}
+h1 .ch{display:inline-block;cursor:default}
+.lead b{color:var(--pink)}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--orange);margin:0 2px 0 3px;vertical-align:text-bottom}
+#curtain{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#1b1240,#3a1b6b);display:none;place-items:center}
+.anim #curtain{display:grid}
+#curtain span{font-size:4rem;font-weight:800;letter-spacing:.1em;background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.blobs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bw{position:absolute;inset:0}
+.bw i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35}
+.b1{width:480px;height:480px;background:var(--violet);top:6%;left:-8%}
+.b2{width:420px;height:420px;background:#ff6fb1;top:50%;right:-6%}
+.b3{width:360px;height:360px;background:var(--orange);bottom:-6%;left:30%;opacity:.2}
+#cursor{position:fixed;top:0;left:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid var(--pink);border-radius:50%;pointer-events:none;z-index:90;opacity:0;mix-blend-mode:screen}
+.pill{position:absolute;left:0;bottom:8px;height:2px;width:0;border-radius:2px;background:linear-gradient(90deg,var(--pink),var(--orange));opacity:0;box-shadow:0 0 12px var(--pink)}
+nav .wrap{position:relative}
+.avatar-wrap{position:relative;display:grid;place-items:center}
+.rays{position:absolute;width:150%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(from 0deg,#ffffff1c 0 1.2deg,transparent 1.2deg 7deg);-webkit-mask:radial-gradient(circle,transparent 24%,#000 26%,transparent 68%);mask:radial-gradient(circle,transparent 24%,#000 26%,transparent 68%)}
+.avatar{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.hint{position:absolute;bottom:-34px;color:var(--muted);font-size:.8rem;margin:0}
+.marquee{overflow:hidden;padding:30px 0;border-block:1px solid #ffffff10;margin:0 -20px;transform:rotate(-1.5deg);background:#ffffff05}
+.track{display:flex;gap:36px;width:max-content;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px #ffffff40}
+.track.alt{margin-top:8px;-webkit-text-stroke:0;color:#ffffff22}
+.track span:nth-child(3n){color:var(--pink);-webkit-text-stroke:0}
+.grid{perspective:1100px}
+.card{position:relative;transform-style:preserve-3d}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .25s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),#ffffff22,transparent 45%)}
+.card:hover::after{opacity:1}
+.mini{position:relative;overflow:hidden}
+.mini::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .25s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),#e8a4c833,transparent 60%)}
+.mini:hover::before{opacity:1}
+.mini>*{position:relative}
+section h2{display:inline-block}
+.btn{will-change:transform}
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:95}
+#shock{position:fixed;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:6px solid #fff;opacity:0;pointer-events:none;z-index:94;box-shadow:0 0 40px var(--pink)}
+#ok{position:fixed;left:50%;top:50%;font-size:clamp(4rem,16vw,11rem);font-weight:900;letter-spacing:-.05em;color:#fff;-webkit-text-stroke:3px var(--violet);opacity:0;pointer-events:none;z-index:96;transform:translate(-50%,-50%);text-shadow:0 10px 60px var(--pink)}
+@media(hover:none){#cursor{display:none}}
