@@ -1,7 +1,7 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
-import { featured, G } from "./projects.js";
+import { featured, G } from "./projects.js?v=3";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -214,8 +214,8 @@ function eyes() {
   svg.setAttribute("class", "eyes"); svg.setAttribute("viewBox", "0 0 1080 1080"); svg.setAttribute("preserveAspectRatio", "none");
   // Coordinates are in the original 1080x1080 photo. rest = where the drawn pupil sits; clip = inside of the eye outline.
   const eyesData = [
-    { rest: [493.7, 350], r: 6.2, cover: 8.2, clip: [483, 361, 44, 20], c: [483, 361] },
-    { rest: [633.7, 350.7], r: 5.8, cover: 7.8, clip: [637, 361, 39, 20], c: [637, 361] },
+    { rest: [493.7, 350], r: 8.6, cover: 9.6, clip: [483, 361, 44, 20], c: [483, 361] },
+    { rest: [633.7, 350.7], r: 8.2, cover: 9.2, clip: [637, 361, 39, 20], c: [637, 361] },
   ];
   svg.innerHTML = eyesData.map((e, i) => `
     <clipPath id="eclip${i}"><ellipse cx="${e.clip[0]}" cy="${e.clip[1]}" rx="${e.clip[2]}" ry="${e.clip[3]}"/></clipPath>
@@ -237,7 +237,7 @@ function eyes() {
   // Where the cursor is, then smooth the pupils toward it
   let mx = innerWidth / 2, my = innerHeight / 2, idleAt = 0;
   const cur = eyesData.map(() => [0, 0]);
-  const MAXX = 24, MAXUP = 6, MAXDOWN = 14;
+  const MAXX = 34, MAXUP = 9, MAXDOWN = 17;
   addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; idleAt = performance.now(); });
   const tick = (now) => {
     const box = svg.getBoundingClientRect(), k = box.width / 1080;
@@ -245,7 +245,7 @@ function eyes() {
     if (now - idleAt > 4000) { const s = Math.floor(now / 1800) % 4; [mx, my] = [[0.2, 0.4], [0.8, 0.45], [0.5, 0.9], [0.65, 0.1]][s].map((f, j) => (j ? innerHeight : innerWidth) * f); }
     eyesData.forEach((e, i) => {
       const ex = box.left + e.c[0] * k, ey = box.top + e.c[1] * k;
-      const dx = mx - ex, dy = my - ey, dist = Math.hypot(dx, dy) || 1, t = Math.min(1, dist / (box.width * 0.9));
+      const dx = mx - ex, dy = my - ey, dist = Math.hypot(dx, dy) || 1, t = Math.min(1, dist / (box.width * 0.6));
       const tx = (dx / dist) * t * MAXX, ny = (dy / dist) * t, ty = ny * (ny < 0 ? MAXUP : MAXDOWN);
       cur[i][0] += (tx - cur[i][0]) * 0.15; cur[i][1] += (ty - cur[i][1]) * 0.15;
       pupils[i].setAttribute("transform", `translate(${cur[i][0].toFixed(2)} ${cur[i][1].toFixed(2)})`);
