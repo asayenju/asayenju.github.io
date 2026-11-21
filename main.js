@@ -1,5 +1,6 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
+import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
 import { featured, more, forks, G } from "./projects.js";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -106,10 +107,12 @@ async function start() {
     counts.forEach((n) => { const to = +n.dataset.count; animate(0, to, { duration: 1.4, ease: "easeOut", onUpdate: (v) => (n.textContent = Math.round(v)) }); });
   });
 
+  journey();
+
   // ---- Nav underline follows the section ----
   const pill = $(".pill"), navWrap = $("nav .wrap");
   inView(".hero", () => { animate(pill, { opacity: 0 }, { duration: 0.2 }); return () => animate(pill, { opacity: 1 }, { duration: 0.2 }); }, { amount: 0.6 });
-  inView("#featured, #more, #contact", (sec) => {
+  inView("#journey, #featured, #more, #contact", (sec) => {
     const a = $(`nav a[href="#${sec.id}"]`), r = a.getBoundingClientRect(), p = navWrap.getBoundingClientRect();
     animate(pill, { x: r.left - p.left, width: r.width, opacity: 1 }, { type: "spring", stiffness: 260, damping: 26 });
   }, { amount: 0.35 });
@@ -179,4 +182,35 @@ async function typewriter() {
     for (let k = w.length; k >= 0; k--) { t.textContent = w.slice(0, k); await sleep(28); }
     await sleep(250);
   }
+}
+
+// ---------- Journey (anime.js) ----------
+function journey() {
+  // The line fills as you read down the timeline (Motion, scroll-linked)
+  scroll(animate(".tl-line i", { scaleY: [0, 1] }, { ease: "linear" }), { target: $(".tl"), offset: ["start 75%", "end 60%"] });
+
+  // Split each card title into letters for the stagger
+  $$(".tl-card h3").forEach((h) => {
+    const t = h.textContent; h.textContent = "";
+    for (const ch of t) { const s = document.createElement("span"); s.className = "c"; s.textContent = ch; h.append(s); }
+  });
+
+  // Pulsing rings on the nodes, looping forever
+  anime(".tl-node i", { scale: [1, 2.8], opacity: [0.7, 0], duration: 1800, ease: "outQuad", loop: true, delay: animeStagger(400) });
+
+  const seen = new WeakSet();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting || seen.has(e.target)) continue;
+      seen.add(e.target);
+      const item = e.target, card = $(".tl-card", item);
+      anime($(".tl-node b", item), { scale: [0, 1], opacity: [0, 1], duration: 900, ease: "outElastic(1, .6)" });
+      anime(card, { opacity: [0, 1], translateX: [-50, 0], rotate: [-2, 0], duration: 900, ease: "outExpo" });
+      anime($$("h3 .c", card), { translateY: [40, 0], opacity: [0, 1], rotateX: [-90, 0], delay: animeStagger(28, { start: 250 }), duration: 700, ease: "outBack" });
+      anime($$(".kind, p, .date", card), { opacity: [0, 1], translateY: [14, 0], delay: animeStagger(120, { start: 500 }), duration: 600, ease: "outQuad" });
+      const yr = $("#year", card);
+      if (yr) { const o = { n: 1990 }; anime(o, { n: 2027, duration: 1800, delay: 600, ease: "outExpo", onUpdate: () => (yr.textContent = Math.round(o.n)) }); }
+    }
+  }, { threshold: 0.35 });
+  $$(".tl-item").forEach((n) => io.observe(n));
 }

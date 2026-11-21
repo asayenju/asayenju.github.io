@@ -19,7 +19,7 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
 <div id="progress"></div>
 <nav><div class="wrap">
   <a class="logo" href="#top">AS</a>
-  <a href="#featured">Featured</a><a href="#more">More</a><a href="#contact">Contact</a><span class="pill"></span>
+  <a href="#journey">Journey</a><a href="#featured">Featured</a><a href="#more">More</a><a href="#contact">Contact</a><span class="pill"></span>
 </div></nav>
 
 <main class="wrap" id="top">
@@ -44,9 +44,40 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
 
   <div class="marquee" aria-hidden="true"><div class="track" id="m1"></div><div class="track alt" id="m2"></div></div>
 
+  <section id="journey">
+    <h2 id="who">Who I am</h2>
+    <p class="sub">Where I study, and where I've worked.</p>
+    <div class="tl">
+      <div class="tl-line"><i></i></div>
+      <article class="tl-item">
+        <div class="tl-node"><b></b><i></i></div>
+        <div class="tl-card">
+          <small class="kind">Education</small>
+          <h3>UMass Amherst</h3>
+          <p>Computer Science</p>
+          <span class="date">Graduating May <b id="year">2027</b></span>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-node"><b></b><i></i></div>
+        <div class="tl-card">
+          <small class="kind">Experience</small>
+          <h3>Desmata Inc.</h3>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-node"><b></b><i></i></div>
+        <div class="tl-card">
+          <small class="kind">Then</small>
+          <h3>Unlimited Remit</h3>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <section id="featured">
     <h2 data-reveal>Featured</h2>
-    <p class="sub" data-reveal>The projects I'd show first. Demo videos live on the cards.</p>
+    <p class="sub" data-reveal>My pinned GitHub projects, plus PathCite. Demo videos live on the cards.</p>
     <div class="grid" id="featured-grid"></div>
   </section>
 
