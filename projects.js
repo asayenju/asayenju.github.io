@@ -3,14 +3,14 @@ const G = "https://github.com/asayenju/";
 
 export const featured = [
   { name: "Banking Customer Service Agent", repo: "banking_customer_service_agent", live: "https://bankingcustomerserviceagent-fronten.vercel.app", pinned: true,
-    desc: "A typed multi-agent customer service system for a bank, built on the tau2-bench banking domain. The model only reports what the customer said; code decides every rule, fee and step.",
-    tags: ["Python", "Multi-agent", "Context engineering"], video: null },
+    desc: "Six specialist agents for credit cards, debit cards, rewards, fees and fraud. GPT-4 breaks down intents at about 85% accuracy and the Jev decision model picks each action. The model only reports what the customer said; code decides every rule and fee. The demo has 59 user personas to try.",
+    tags: ["Python", "FastAPI", "GPT-4", "tau2-bench"], video: null },
   { name: "PathCite", repo: "PathCite-AI-Pathology-Assistant",
     desc: "Classifies colorectal H&E tissue patches into 9 classes with a fine-tuned ResNet18, served by a FastAPI backend with 70 offline tests. Research use only.",
     tags: ["PyTorch", "FastAPI", "Computer vision"], video: null },
   { name: "Memora", repo: "Memora", pinned: true,
-    desc: "Slack-native operational memory for student clubs. Ask what was decided and get a cited, confidence-rated answer from the club's own records.",
-    tags: ["Python", "Slack", "RAG"], video: null },
+    desc: "Slack-native memory for student clubs, built by a 3-person team in a 2-month agent builder challenge. Reconciles conflicting records across 3 systems at 95% recall and precision, with Elo-style source confidence and 452 pytest tests.",
+    tags: ["Python", "Claude API", "pgvector", "MCP"], video: null },
   { name: "PM Review RAG", repo: "PM_review_rag", live: "https://pm-review-rag.vercel.app", pinned: true,
     desc: "Ask product-manager questions over customer reviews. Embeds reviews, retrieves feature-scoped evidence and answers with source labels.",
     tags: ["FastAPI", "Next.js", "Supabase", "RAG"], video: null },

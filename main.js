@@ -59,6 +59,7 @@ for (const n of $$(".card, .mini")) n.addEventListener("pointermove", (e) => {
 
 if (reduce) {
   counts.forEach((n) => (n.textContent = n.dataset.count));
+  $$("#metrics b").forEach((b) => (b.textContent = (b.dataset.pre || "") + (+b.dataset.to).toFixed(+(b.dataset.dec || 0)) + b.dataset.suf));
   $("#type").textContent = "reliable agents,";
   $(".caret").remove();
 } else start();
@@ -207,10 +208,21 @@ function journey() {
       anime($(".tl-node b", item), { scale: [0, 1], opacity: [0, 1], duration: 900, ease: "outElastic(1, .6)" });
       anime(card, { opacity: [0, 1], translateX: [-50, 0], rotate: [-2, 0], duration: 900, ease: "outExpo" });
       anime($$("h3 .c", card), { translateY: [40, 0], opacity: [0, 1], rotateX: [-90, 0], delay: animeStagger(28, { start: 250 }), duration: 700, ease: "outBack" });
-      anime($$(".kind, p, .date", card), { opacity: [0, 1], translateY: [14, 0], delay: animeStagger(120, { start: 500 }), duration: 600, ease: "outQuad" });
+      anime($$(".kind, .role, .meta, .pts li, .date", card), { opacity: [0, 1], translateY: [14, 0], delay: animeStagger(110, { start: 500 }), duration: 600, ease: "outQuad" });
       const yr = $("#year", card);
       if (yr) { const o = { n: 1990 }; anime(o, { n: 2027, duration: 1800, delay: 600, ease: "outExpo", onUpdate: () => (yr.textContent = Math.round(o.n)) }); }
     }
   }, { threshold: 0.35 });
   $$(".tl-item").forEach((n) => io.observe(n));
+
+  // Metrics strip: tiles rise, numbers count up
+  const mio = new IntersectionObserver((es) => {
+    if (!es[0].isIntersecting) return; mio.disconnect();
+    anime("#metrics>div", { opacity: [0, 1], translateY: [40, 0], scale: [0.9, 1], delay: animeStagger(120), duration: 800, ease: "outExpo" });
+    $$("#metrics b").forEach((b, i) => {
+      const o = { n: 0 }, to = +b.dataset.to, dec = +(b.dataset.dec || 0);
+      anime(o, { n: to, duration: 1800, delay: 150 * i, ease: "outExpo", onUpdate: () => (b.textContent = (b.dataset.pre || "") + o.n.toFixed(dec) + b.dataset.suf) });
+    });
+  }, { threshold: 0.4 });
+  mio.observe($("#metrics"));
 }

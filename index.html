@@ -31,6 +31,7 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
       <div class="cta" data-reveal>
         <a class="btn primary" href="#featured">See my work</a>
         <a class="btn" href="https://github.com/asayenju">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/ashwin-sayenju">LinkedIn</a>
       </div>
       <div class="stats" data-reveal>
         <div><b data-count="12">0</b><span>featured projects</span></div>
@@ -46,7 +47,7 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
 
   <section id="journey">
     <h2 id="who">Who I am</h2>
-    <p class="sub">Where I study, and where I've worked.</p>
+    <p class="sub">Where I study, research and have worked.</p>
     <div class="tl">
       <div class="tl-line"><i></i></div>
       <article class="tl-item">
@@ -54,8 +55,30 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
         <div class="tl-card">
           <small class="kind">Education</small>
           <h3>UMass Amherst</h3>
-          <p>Computer Science</p>
+          <p class="role">B.S. Computer Science · 3.83 GPA</p>
+          <p class="meta">Amherst, MA</p>
+          <ul class="pts"><li>Dean's List (4×), Chancellor's Award, Early Research Scholars Program</li><li>Data Structures &amp; Algorithms, Operating Systems, Databases, Software Engineering, Machine Learning</li></ul>
           <span class="date">Graduating May <b id="year">2027</b></span>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-node"><b></b><i></i></div>
+        <div class="tl-card">
+          <small class="kind">Research</small>
+          <h3>ERSP, UMass Amherst</h3>
+          <p class="role">IoT and ML Researcher</p>
+          <p class="meta">Sep 2024 – May 2025</p>
+          <ul class="pts"><li>Built a Kafka and MySQL streaming pipeline with circuit breaking for driver intoxication detection: <b>100,000+</b> data points at <b>166 req/s</b> and <b>19 ms</b> latency</li><li>Trained head-gesture classifiers in PyTorch and TensorFlow at <b>94%</b> accuracy across <b>400+</b> datasets</li></ul>
+        </div>
+      </article>
+      <article class="tl-item">
+        <div class="tl-node"><b></b><i></i></div>
+        <div class="tl-card">
+          <small class="kind">Experience</small>
+          <h3>Unlimited Remit</h3>
+          <p class="role">Software Engineer Intern · Houston, TX</p>
+          <p class="meta">Jun – Aug 2025</p>
+          <ul class="pts"><li>Delivered a money-transfer app for <b>5 international clients</b> and <b>10K customers</b> (Java, Node.js, GraphQL, React Native, Kotlin)</li><li>Cut KYC onboarding drop-off <b>30%</b> and lifted CSAT to <b>4.5/5</b> by redesigning the flow as staged loading</li><li>Raised availability from <b>99.9% to 99.99%</b> with a failover backup microservice</li></ul>
         </div>
       </article>
       <article class="tl-item">
@@ -63,15 +86,17 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
         <div class="tl-card">
           <small class="kind">Experience</small>
           <h3>Desmata Inc.</h3>
+          <p class="role">AI Software Engineer · Frisco, TX</p>
+          <p class="meta">Jun – Aug 2026</p>
+          <ul class="pts"><li>Cut LLM tokens per query from <b>300K to 10K</b> by splitting one many-tool agent into specialized agents behind a small routing model</li><li>Built an LLM-as-a-judge harness that scored agents <b>4.89/5</b> on taking the right action</li><li>Deployed flight and hotel agents as <b>8</b> services on Kubernetes and AWS (Bedrock, ECS, gRPC)</li><li>Lowered latency <b>25%</b> with a Redis cache</li></ul>
         </div>
       </article>
-      <article class="tl-item">
-        <div class="tl-node"><b></b><i></i></div>
-        <div class="tl-card">
-          <small class="kind">Then</small>
-          <h3>Unlimited Remit</h3>
-        </div>
-      </article>
+    </div>
+    <div class="metrics" id="metrics">
+      <div><b data-to="99.99" data-dec="2" data-suf="%">0</b><span>availability, money-transfer app</span></div>
+      <div><b data-to="30" data-pre="−" data-suf="%">0</b><span>KYC onboarding drop-off</span></div>
+      <div><b data-to="25" data-pre="−" data-suf="%">0</b><span>latency with a Redis cache</span></div>
+      <div><b data-to="94" data-suf="%">0</b><span>head-gesture accuracy</span></div>
     </div>
   </section>
 
@@ -91,7 +116,7 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
 
   <section id="contact">
     <h2 data-reveal>Contact</h2>
-    <p class="sub" data-reveal>The best place to find me is <a href="https://github.com/asayenju">github.com/asayenju</a>.</p>
+    <p class="sub" data-reveal>Find me on <a href="https://www.linkedin.com/in/ashwin-sayenju">LinkedIn</a> or <a href="https://github.com/asayenju">GitHub</a>.</p>
   </section>
 </main>
 <div id="flash"></div><div id="shock"></div><div id="ok">OK.</div>
