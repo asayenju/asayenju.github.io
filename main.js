@@ -1,7 +1,7 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
-import { featured, G } from "./projects.js?v=5";
+import { featured, G } from "./projects.js?v=6";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -30,7 +30,8 @@ const counts = $$("[data-count]"); counts[0].dataset.count = featured.length;
 // Skills: grouped cards you page through with arrows
 const skillGroups = [
   ["Languages", ["Python", "TypeScript", "Go", "JavaScript", "SQL", "Java", "Kotlin", "C/C++", "HTML/CSS"]],
-  ["Backend & Testing", ["Node.js", "React", "React Native", "Stripe", "FastAPI", "REST APIs", "GraphQL", "gRPC", "JUnit", "pytest", "Playwright"]],
+  ["Frontend", ["React", "React Native"]],
+  ["Backend & Testing", ["Node.js", "Stripe", "FastAPI", "REST APIs", "GraphQL", "gRPC", "JUnit", "pytest", "Playwright"]],
   ["Data & Cloud", ["PostgreSQL", "pgvector", "AWS", "ECS", "Kafka", "Redis", "Kubernetes", "Docker", "MySQL", "GCP", "Prometheus", "GitLab CI/CD"]],
   ["AI & Agentic Tools", ["LLM evaluations", "RAG", "Agentic systems", "MCP", "Claude API", "Claude Code", "Copilot"]],
 ];
