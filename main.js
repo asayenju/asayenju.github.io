@@ -149,21 +149,7 @@ async function start() {
     });
   }
 
-  // ---- Easter egg: one punch ----
-  let busy = false;
-  $("#avatar").addEventListener("click", async (e) => {
-    if (busy) return; busy = true;
-    $("#hint").textContent = "…that's all it takes.";
-    const r = $("#avatar").getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const shock = $("#shock"); shock.style.left = cx + "px"; shock.style.top = cy + "px";
-    animate("#flash", { opacity: [0.9, 0] }, { duration: 0.5 });
-    animate(shock, { scale: [0.2, 14], opacity: [1, 0] }, { duration: 0.9, ease: "easeOut" });
-    animate("#ok", { opacity: [0, 1, 1, 0], scale: [0.4, 1.1, 1, 1.4] }, { duration: 1.5, times: [0, 0.2, 0.7, 1] });
-    animate("main", { x: [0, -22, 20, -14, 10, -4, 0], y: [0, 10, -12, 6, -4, 0, 0] }, { duration: 0.6 });
-    animate("#avatar", { rotate: [0, -8, 6, 0], scale: [1, 1.25, 0.95, 1] }, { duration: 0.6 });
-    animate(".blobs", { scale: [1, 1.4, 1] }, { duration: 1 });
-    await sleep(1500); busy = false;
-  });
+  eyes();
 }
 
 // ---------- Typewriter ----------
@@ -219,4 +205,52 @@ function journey() {
     });
   }, { threshold: 0.4 });
   mio.observe($("#metrics"));
+}
+
+// ---------- Saitama's eyes follow the cursor ----------
+function eyes() {
+  const av = $("#avatar"), img = $("img", av), NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "eyes"); svg.setAttribute("viewBox", "0 0 1080 1080"); svg.setAttribute("preserveAspectRatio", "none");
+  // Coordinates are in the original 1080x1080 photo. rest = where the drawn pupil sits; clip = inside of the eye outline.
+  const eyesData = [
+    { rest: [493.7, 350], r: 6.2, cover: 8.2, clip: [483, 361, 44, 20], c: [483, 361] },
+    { rest: [633.7, 350.7], r: 5.8, cover: 7.8, clip: [637, 361, 39, 20], c: [637, 361] },
+  ];
+  svg.innerHTML = eyesData.map((e, i) => `
+    <clipPath id="eclip${i}"><ellipse cx="${e.clip[0]}" cy="${e.clip[1]}" rx="${e.clip[2]}" ry="${e.clip[3]}"/></clipPath>
+    <circle class="cover" cx="${e.rest[0]}" cy="${e.rest[1]}" r="${e.cover}" fill="#e6e6e6"/>
+    <g clip-path="url(#eclip${i})"><circle class="pupil" cx="${e.rest[0]}" cy="${e.rest[1]}" r="${e.r}" fill="#1b1242"/></g>`).join("");
+  av.append(svg);
+  const covers = $$(".cover", svg), pupils = $$(".pupil", svg);
+
+  // Match the cover colour to the real eye white by sampling the photo
+  const sample = () => {
+    try {
+      const cv = document.createElement("canvas"); cv.width = cv.height = 1080;
+      const x = cv.getContext("2d"); x.drawImage(img, 0, 0, 1080, 1080);
+      eyesData.forEach((e, i) => { const d = x.getImageData(e.c[0] - 18, e.c[1] + 12, 1, 1).data; covers[i].setAttribute("fill", `rgb(${d[0]},${d[1]},${d[2]})`); });
+    } catch (_) {}
+  };
+  img.complete ? sample() : img.addEventListener("load", sample);
+
+  // Where the cursor is, then smooth the pupils toward it
+  let mx = innerWidth / 2, my = innerHeight / 2, idleAt = 0;
+  const cur = eyesData.map(() => [0, 0]);
+  const MAXX = 24, MAXUP = 6, MAXDOWN = 14;
+  addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; idleAt = performance.now(); });
+  const tick = (now) => {
+    const box = svg.getBoundingClientRect(), k = box.width / 1080;
+    // After 4s with no pointer, glance around on its own
+    if (now - idleAt > 4000) { const s = Math.floor(now / 1800) % 4; [mx, my] = [[0.2, 0.4], [0.8, 0.45], [0.5, 0.9], [0.65, 0.1]][s].map((f, j) => (j ? innerHeight : innerWidth) * f); }
+    eyesData.forEach((e, i) => {
+      const ex = box.left + e.c[0] * k, ey = box.top + e.c[1] * k;
+      const dx = mx - ex, dy = my - ey, dist = Math.hypot(dx, dy) || 1, t = Math.min(1, dist / (box.width * 0.9));
+      const tx = (dx / dist) * t * MAXX, ny = (dy / dist) * t, ty = ny * (ny < 0 ? MAXUP : MAXDOWN);
+      cur[i][0] += (tx - cur[i][0]) * 0.15; cur[i][1] += (ty - cur[i][1]) * 0.15;
+      pupils[i].setAttribute("transform", `translate(${cur[i][0].toFixed(2)} ${cur[i][1].toFixed(2)})`);
+    });
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
