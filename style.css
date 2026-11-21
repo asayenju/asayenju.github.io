@@ -50,10 +50,7 @@ footer{padding:48px 0 64px;color:var(--muted);border-top:1px solid #ffffff0d;tex
 h1 .ch{display:inline-block;cursor:default}
 .lead b{color:var(--pink)}
 .caret{display:inline-block;width:2px;height:1.1em;background:var(--orange);margin:0 2px 0 3px;vertical-align:text-bottom}
-#curtain{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#1b1240,#3a1b6b);display:none;place-items:center}
-.anim #curtain{display:grid}
-#curtain span{font-size:4rem;font-weight:800;letter-spacing:.1em;background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
-.blobs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.anim .blobs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .bw{position:absolute;inset:0}
 .bw i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35}
 .b1{width:480px;height:480px;background:var(--violet);top:6%;left:-8%}
@@ -67,10 +64,6 @@ nav .wrap{position:relative}
 .avatar{user-select:none}
 .avatar .eyes{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;pointer-events:none}
 .hint{position:absolute;bottom:-34px;color:var(--muted);font-size:.8rem;margin:0}
-.marquee{overflow:hidden;padding:30px 0;border-block:1px solid #ffffff10;margin:0 -20px;transform:rotate(-1.5deg);background:#ffffff05}
-.track{display:flex;gap:36px;width:max-content;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px #ffffff40}
-.track.alt{margin-top:8px;-webkit-text-stroke:0;color:#ffffff22}
-.track span:nth-child(3n){color:var(--pink);-webkit-text-stroke:0}
 .grid{perspective:1100px}
 .card{position:relative;transform-style:preserve-3d}
 .card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .25s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),#ffffff22,transparent 45%)}
@@ -99,7 +92,7 @@ section h2{display:inline-block}
 .kind{color:var(--orange);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
 .date{display:inline-block;margin-top:14px;padding:4px 14px;border-radius:99px;background:#ffffff0f;color:var(--pink);font-weight:600;font-size:.9rem}
 .date b{font-variant-numeric:tabular-nums}
-.anim .tl-card,.anim .tl-node b{opacity:0}
+.anim .tl-card,.anim .tl-node b,.anim .sk-card{opacity:0}
 @media(max-width:600px){.tl{padding-left:48px}.tl-node{left:-40px}.tl-line{left:11px}}
 
 .tl-card .role{color:var(--fg);font-weight:600;margin-top:2px}
@@ -112,3 +105,16 @@ section h2{display:inline-block}
 .metrics b{display:block;font-size:clamp(2rem,5vw,2.8rem);letter-spacing:-.03em;background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
 .metrics span{color:var(--muted);font-size:.85rem}
 .anim .metrics>div{opacity:0}
+
+.sk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:8px}
+.sk-head .sub{margin-bottom:20px}
+.arrows{display:flex;gap:10px;margin-bottom:20px}
+.arrow{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:1.2rem;cursor:pointer;transition:border-color .2s,opacity .2s}
+.arrow:hover:not(:disabled){border-color:var(--pink);color:var(--pink)}
+.arrow:disabled{opacity:.3;cursor:default}
+.sk-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 8px;outline:none}
+.sk-track::-webkit-scrollbar{display:none}
+.sk-card{flex:0 0 min(330px,86%);scroll-snap-align:start;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px}
+.sk-card h3{margin:0 0 14px;font-size:1.05rem;color:var(--orange);letter-spacing:.04em}
+.sk-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sk-chips span{padding:4px 12px;border-radius:99px;background:#ffffff0f;color:var(--fg);font-size:.88rem}

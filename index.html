@@ -13,7 +13,6 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="curtain"><span>AS</span></div>
 <div class="blobs" aria-hidden="true"><div class="bw"><i class="b1"></i></div><div class="bw"><i class="b2"></i></div><div class="bw"><i class="b3"></i></div></div>
 <div id="cursor" aria-hidden="true"></div>
 <div id="progress"></div>
@@ -44,7 +43,16 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
       <p class="hint" id="hint">he's watching.</p></div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="track" id="m1"></div><div class="track alt" id="m2"></div></div>
+  <section id="skills">
+    <div class="sk-head">
+      <div><h2>Skills</h2><p class="sub">Use the arrows to see them all.</p></div>
+      <div class="arrows">
+        <button class="arrow" id="sk-prev" aria-label="Previous skills" disabled>&larr;</button>
+        <button class="arrow" id="sk-next" aria-label="Next skills">&rarr;</button>
+      </div>
+    </div>
+    <div class="sk-track" id="sk-track" tabindex="0" aria-label="Skills, grouped"></div>
+  </section>
 
   <section id="journey">
     <h2 id="who">Who I am</h2>
@@ -118,6 +126,6 @@ setTimeout(function(){if(!window.__ok)document.documentElement.classList.remove(
   </section>
 </main>
 <footer><small>© <span id="y"></span> Ashwin Sayenju</small></footer>
-<script type="module" src="main.js?v=3"></script>
+<script type="module" src="main.js?v=4"></script>
 </body>
 </html>

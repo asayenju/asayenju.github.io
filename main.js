@@ -1,7 +1,7 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
-import { featured, G } from "./projects.js?v=3";
+import { featured, G } from "./projects.js?v=4";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -27,12 +27,27 @@ for (const p of featured) {
 $("#y").textContent = new Date().getFullYear();
 const counts = $$("[data-count]"); counts[0].dataset.count = featured.length;
 
-// Skills marquee content (duplicated so the scroll-linked slide never runs out)
-const skills = ["Python", "TypeScript", "Go", "Java", "Kotlin", "FastAPI", "React", "React Native", "GraphQL", "gRPC", "AWS", "Kubernetes", "Kafka", "Redis", "pgvector", "RAG", "MCP", "LLM Evals"];
-for (const id of ["m1", "m2"]) {
-  const list = id === "m2" ? [...skills].reverse() : skills;
-  $("#" + id).innerHTML = [...list, ...list, ...list].map((s) => `<span>${s}</span>`).join("");
-}
+// Skills: grouped cards you page through with arrows
+const skillGroups = [
+  ["Languages", ["Python", "TypeScript", "Go", "JavaScript", "SQL", "Java", "Kotlin", "C/C++", "HTML/CSS"]],
+  ["Backend & Testing", ["Node.js", "React", "React Native", "Stripe", "FastAPI", "REST APIs", "GraphQL", "gRPC", "JUnit", "pytest", "Playwright"]],
+  ["Data & Cloud", ["PostgreSQL", "pgvector", "AWS", "ECS", "Kafka", "Redis", "Kubernetes", "Docker", "MySQL", "GCP", "Prometheus", "GitLab CI/CD"]],
+  ["AI & Agentic Tools", ["LLM evaluations", "RAG", "Agentic systems", "MCP", "Claude API", "Claude Code", "Copilot"]],
+];
+const skTrack = $("#sk-track");
+for (const [t, items] of skillGroups)
+  skTrack.append(el(`<div class="sk-card"><h3>${esc(t.toUpperCase())}</h3><div class="sk-chips">${items.map((s) => `<span>${esc(s)}</span>`).join("")}</div></div>`));
+const skPrev = $("#sk-prev"), skNext = $("#sk-next");
+const skStep = () => skTrack.firstElementChild.getBoundingClientRect().width + 16;
+const skUpdate = () => {
+  skPrev.disabled = skTrack.scrollLeft < 4;
+  skNext.disabled = skTrack.scrollLeft + skTrack.clientWidth >= skTrack.scrollWidth - 4;
+};
+skPrev.addEventListener("click", () => skTrack.scrollBy({ left: -skStep(), behavior: reduce ? "auto" : "smooth" }));
+skNext.addEventListener("click", () => skTrack.scrollBy({ left: skStep(), behavior: reduce ? "auto" : "smooth" }));
+skTrack.addEventListener("scroll", skUpdate, { passive: true });
+addEventListener("resize", skUpdate);
+skUpdate();
 
 // Split the name into letters
 $$("#name .w").forEach((w) => {
@@ -61,13 +76,6 @@ if (reduce) {
 } else start();
 
 async function start() {
-  // ---- Intro curtain ----
-  const safe = (a, ms) => Promise.race([a, sleep(ms)]); // never let the intro block the page
-  await safe(animate("#curtain span", { opacity: [0, 1], scale: [0.7, 1] }, { duration: 0.7, ease: [0.16, 1, 0.3, 1] }), 1200);
-  await sleep(250);
-  await safe(animate("#curtain", { y: ["0%", "-100%"] }, { duration: 0.8, ease: [0.76, 0, 0.24, 1] }), 1500);
-  $("#curtain").style.display = "none";
-
   // ---- Hero entrance ----
   animate("#name .ch", { y: ["115%", "0%"], rotate: [12, 0] }, { duration: 0.7, delay: stagger(0.035), ease: [0.16, 1, 0.3, 1] }).then(() => $$("#name .w").forEach((w) => (w.style.overflow = "visible")));
   animate("#avatar", { opacity: [0, 1], scale: [0.4, 1], rotate: [-25, 0] }, { type: "spring", bounce: 0.4, duration: 1.2, delay: 0.2 });
@@ -91,11 +99,9 @@ async function start() {
   scroll(animate(".avatar-wrap", { y: [0, 90], scale: [1, 0.85] }, { ease: "linear" }), { target: hero, offset: ["start start", "end start"] });
   scroll(animate(".hero>div:first-child", { y: [0, -70], opacity: [1, 0.15] }, { ease: "linear" }), { target: hero, offset: ["start start", "end start"] });
   for (const [i, b] of $$(".bw").entries()) scroll(animate(b, { y: [0, (i + 1) * -160] }, { ease: "linear" }));
-  const mq = $(".marquee");
-  scroll(animate("#m1", { x: ["0%", "-33%"] }, { ease: "linear" }), { target: mq, offset: ["start end", "end start"] });
-  scroll(animate("#m2", { x: ["-33%", "0%"] }, { ease: "linear" }), { target: mq, offset: ["start end", "end start"] });
 
   // ---- Reveals ----
+  inView(".sk-card", (n) => { animate(n, { opacity: [0, 1], y: [30, 0] }, { duration: 0.6, ease: [0.16, 1, 0.3, 1] }); animate($$("span", n), { opacity: [0, 1], scale: [0.8, 1] }, { delay: stagger(0.03, { startDelay: 0.2 }), duration: 0.35 }); }, { amount: 0.2 });
   inView(".card", (n) => { animate(n, { opacity: [0, 1], y: [60, 0], rotate: [3, 0] }, { duration: 0.8, ease: [0.16, 1, 0.3, 1] }); }, { amount: 0.15 });
   inView("section h2", (n) => { animate(n, { opacity: [0, 1], clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)"], x: [-30, 0] }, { duration: 0.8, ease: [0.16, 1, 0.3, 1] }); });
   inView("section .sub", (n) => { animate(n, { opacity: [0, 1], y: [16, 0] }, { duration: 0.5 }); });
