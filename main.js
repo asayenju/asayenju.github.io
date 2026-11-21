@@ -1,7 +1,7 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
-import { featured, more, forks, G } from "./projects.js";
+import { featured, G } from "./projects.js";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -24,15 +24,11 @@ for (const p of featured) {
     <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
     <div class="links">${links.join("")}</div></div></article>`));
 }
-const mg = $("#more-grid");
-for (const [n, r, d, t] of more)
-  mg.append(el(`<a class="mini" href="${G + r}"><small>${esc(t)}</small><h3>${esc(n)}</h3><p>${esc(d)}</p></a>`));
-for (const [r, d] of forks) $("#forks").append(el(`<li><a href="${G + r}">${esc(r)}</a>: ${esc(d)}</li>`));
 $("#y").textContent = new Date().getFullYear();
-const counts = $$("[data-count]"); counts[0].dataset.count = featured.length; counts[1].dataset.count = more.length;
+const counts = $$("[data-count]"); counts[0].dataset.count = featured.length;
 
 // Skills marquee content (duplicated so the scroll-linked slide never runs out)
-const skills = ["Python", "PyTorch", "FastAPI", "React", "Next.js", "TypeScript", "Java", "AWS", "Supabase", "RAG", "Gemini", "Kafka", "MongoDB", "Expo", "Agents", "Evals"];
+const skills = ["Python", "TypeScript", "Go", "Java", "Kotlin", "FastAPI", "React", "React Native", "GraphQL", "gRPC", "AWS", "Kubernetes", "Kafka", "Redis", "pgvector", "RAG", "MCP", "LLM Evals"];
 for (const id of ["m1", "m2"]) {
   const list = id === "m2" ? [...skills].reverse() : skills;
   $("#" + id).innerHTML = [...list, ...list, ...list].map((s) => `<span>${s}</span>`).join("");
@@ -101,9 +97,8 @@ async function start() {
 
   // ---- Reveals ----
   inView(".card", (n) => { animate(n, { opacity: [0, 1], y: [60, 0], rotate: [3, 0] }, { duration: 0.8, ease: [0.16, 1, 0.3, 1] }); }, { amount: 0.15 });
-  inView(".mini", (n) => { animate(n, { opacity: [0, 1], y: [24, 0], scale: [0.92, 1] }, { duration: 0.45, ease: [0.16, 1, 0.3, 1] }); }, { amount: 0.2 });
   inView("section h2", (n) => { animate(n, { opacity: [0, 1], clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)"], x: [-30, 0] }, { duration: 0.8, ease: [0.16, 1, 0.3, 1] }); });
-  inView("section .sub, .forks li", (n) => { animate(n, { opacity: [0, 1], y: [16, 0] }, { duration: 0.5 }); });
+  inView("section .sub", (n) => { animate(n, { opacity: [0, 1], y: [16, 0] }, { duration: 0.5 }); });
   inView(".stats", () => {
     counts.forEach((n) => { const to = +n.dataset.count; animate(0, to, { duration: 1.4, ease: "easeOut", onUpdate: (v) => (n.textContent = Math.round(v)) }); });
   });
@@ -113,7 +108,7 @@ async function start() {
   // ---- Nav underline follows the section ----
   const pill = $(".pill"), navWrap = $("nav .wrap");
   inView(".hero", () => { animate(pill, { opacity: 0 }, { duration: 0.2 }); return () => animate(pill, { opacity: 1 }, { duration: 0.2 }); }, { amount: 0.6 });
-  inView("#journey, #featured, #more, #contact", (sec) => {
+  inView("#journey, #featured, #contact", (sec) => {
     const a = $(`nav a[href="#${sec.id}"]`), r = a.getBoundingClientRect(), p = navWrap.getBoundingClientRect();
     animate(pill, { x: r.left - p.left, width: r.width, opacity: 1 }, { type: "spring", stiffness: 260, damping: 26 });
   }, { amount: 0.35 });
@@ -141,7 +136,6 @@ async function start() {
     });
     n.addEventListener("pointerleave", () => animate(n, { rotateX: 0, rotateY: 0, y: 0, scale: 1 }, spring));
   }
-  hover(".mini", (n) => { animate(n, { x: 6, scale: 1.02 }, spring); return () => animate(n, { x: 0, scale: 1 }, spring); });
 
   // ---- Custom cursor ring ----
   if (fine) {
