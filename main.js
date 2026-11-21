@@ -1,7 +1,7 @@
 window.__ok = true;
 import { animate, scroll, inView, stagger, hover } from "https://cdn.jsdelivr.net/npm/motion@12.23.0/+esm";
 import { animate as anime, stagger as animeStagger, utils as animeUtils } from "https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm";
-import { featured, G } from "./projects.js?v=4";
+import { featured, G } from "./projects.js?v=5";
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
